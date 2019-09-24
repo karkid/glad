@@ -3,7 +3,6 @@ project "Glad"
     language "C"
     systemversion "latest"
     staticruntime "on"
-    buildoptions { "-std=c11" }
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -16,11 +15,12 @@ project "Glad"
     }
 
     includedirs "./include"
-
-    --Visual Studio IDE specific setting for Window system
-    filter "system:windows"
-        buildoptions { "-lgdi32" }
-    
+  
     --Configuration specific settings for all system
+    filter "configurations:Debug"
+        symbols "on"
+        runtime "Debug"
+
     filter "configurations:Release"
+        optimize "on"
         runtime "Release"
